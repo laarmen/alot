@@ -170,7 +170,7 @@ class SearchBuffer(Buffer):
 
         self.kill_filler_process()
 
-        self.result_count = self.dbman.count_messages(self.querystring)
+        self.result_count = self.dbman.count_threads(self.querystring)
         try:
             self.pipe, self.proc = self.dbman.get_threads(self.querystring)
         except NotmuchError:
