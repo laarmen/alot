@@ -163,9 +163,27 @@ class DBManager(object):
         self.writequeue.append(('untag', querystring, tags,
                                 sync_maildir_flags))
 
-    def count_messages(self, querystring):
-        """returns number of messages that match `querystring`"""
-        return self.query(querystring).count_messages()
+    def count_messages(self, querystring, educated_guess=True):
+        """returns number of messages that match `querystring`.
+
+        :param educated_guess: use :meth:`Query.count_messages` instead of
+                               calling :func:`len` on a search result
+        :type educated_guess: bool
+        """
+        if educated_guess:
+            return self.query(querystring).count_messages()
+        else:
+            msgs = self.query(querystring).search_messages()
+            return len(list(msgs))
+
+    def count_threads(self, querystring):
+        """returns number of threads that match `querystring`"""
+        # we iteratee over Threads ourselves as `len(Threads)` seems
+        # to not return correct values TODO
+        i = 0
+        for t in self.query(querystring).search_threads():
+            i += 1
+        return i
 
     def search_thread_ids(self, querystring):
         """
