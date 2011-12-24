@@ -3,6 +3,7 @@ import email
 import tempfile
 import re
 import shlex
+import tidy
 from datetime import datetime
 from email.header import Header
 import email.charset as charset
@@ -271,7 +272,13 @@ def extract_body(mail, types=None):
                                                       suffix='.html')
                 #write payload to tmpfile
                 if part.get_content_maintype() == 'text':
-                    tmpfile.write(raw_payload.encode('utf8'))
+                    # use tidy to clean up html content
+                    doc = tidy.parseString(raw_payload.encode('utf-8'),
+                                           output_xhtml=0,
+                                           add_xml_decl=0,
+                                           indent=1,tidy_mark=0)
+                    tidied_payload = doc.__str__()
+                    tmpfile.write(tidied_payload)
                 else:
                     tmpfile.write(raw_payload)
                 tmpfile.close()
