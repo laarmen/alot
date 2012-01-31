@@ -258,13 +258,16 @@ class UI(object):
         :param messages: The popups to remove. This should be exactly
                          what :meth:`notify` returned when creating the popup
         """
+        logging.debug('clearing: %s' % str(messages))
         newpile = self.notificationbar.widget_list
+        logging.debug('from: %s' % str(newpile))
         for l in messages:
             newpile.remove(l)
         if newpile:
             self.notificationbar = urwid.Pile(newpile)
         else:
             self.notificationbar = None
+        logging.debug('NB: %s' % str(self.notificationbar))
         self.update()
 
     def choice(self, message, choices={'y': 'yes', 'n': 'no'},
@@ -376,6 +379,7 @@ class UI(object):
                 if timeout == 0:
                     timeout = config.getint('general', 'notify_timeout')
                 self.mainloop.set_alarm_in(timeout, clear)
+        self.update()
         return msgs[0]
 
     def update(self):
