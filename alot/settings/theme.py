@@ -39,22 +39,56 @@ class Theme(object):
             attributes[colours] = {}
             for mode in c[sec].sections:
                 attributes[colours][mode] = {}
-                for themable in c[sec][mode].sections:
-                    block = c[sec][mode][themable]
-                    fg = block['fg']
-                    if colours == 1:
-                        bg = 'default'
-                    else:
-                        bg = block['bg']
-                    if colours == 256:
-                        fg = fg or c['16'][mode][themable][fg]
-                        bg = bg or c['16'][mode][themable][bg]
-                    try:
-                        att = AttrSpec(fg, bg, colours)
-                    except AttrSpecError, e:
-                        raise ConfigError(e)
-                    attributes[colours][mode][themable] = att
+                if mode == 'search':
+                    for tline in c[sec][mode].sections:
+                        attributes[colours][mode][tline] = {}
+                        space = self._read_attribute(c, [mode, tline], colours)
+                        attributes[colours][mode][tline]['spaces'] = space
+                        for themable in c[sec][mode][tline].sections:
+                            att = self._read_attribute(c,
+                                                       [mode, tline, themable],
+                                                       colours)
+                            attributes[colours][mode][tline][themable] = att
+                else:
+                    for themable in c[sec][mode].sections:
+                        att = self._read_attribute(c, [mode, themable],
+                                                   colours)
+                        attributes[colours][mode][themable] = att
         return attributes
+
+    def _read_attribute(self, cfg, path, colours):
+        bg = 'default'
+        if colours != 1:
+            bg = self._get_leaf_value(cfg, [str(colours)] + path + ['bg'])
+            if bg == None:
+                if colours == 16:
+                    bg = self._get_leaf_value(cfg, ['1'] + path + ['bg'])
+                else:
+                    bg = self._get_leaf_value(cfg, ['16'] + path + ['bg'])
+        bg = bg or 'default'
+
+        fg = self._get_leaf_value(cfg, [str(colours)] + path + ['fg'])
+        if fg == None:
+            if colours == 16:
+                fg = self._get_leaf_value(cfg, ['1'] + path + ['fg'])
+            else:
+                fg = self._get_leaf_value(cfg, ['16'] + path + ['fg'])
+        fg = fg or 'default'
+
+        try:
+            att = AttrSpec(fg, bg, colours)
+        except AttrSpecError, e:
+            raise ConfigError(e)
+        return att
+
+    def _get_leaf_value(self, cfg, path):
+        if len(path) == 1:
+            if path[0] not in cfg.scalars:
+                return None
+            else:
+                return cfg[path[0]]
+        else:
+            return self._get_leaf_value(cfg[path[0]], path[1:])
 
     def get_attribute(self, mode, name, colourmode):
         """
