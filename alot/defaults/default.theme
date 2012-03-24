@@ -29,42 +29,31 @@
     [[[results_odd]]]
         fg = 'default'
 [[search]]
-    [[[thread]]]
+    [[[threadline]]]
         fg = 'default'
-    [[[thread_authors]]]
-        fg = 'default,underline'
-    [[[thread_authors_focus]]]
-        fg = 'standout'
-    [[[thread_content]]]
-        fg = 'default'
-    [[[thread_content_focus]]]
-        fg = 'standout'
-    [[[thread_date]]]
-        fg = 'default'
-    [[[thread_date_focus]]]
-        fg = 'standout'
-    [[[thread_focus]]]
-        fg = 'standout'
-    [[[thread_mailcount]]]
-        fg = 'default'
-    [[[thread_mailcount_focus]]]
-        fg = 'standout'
-    [[[thread_subject]]]
-        fg = 'default'
-    [[[thread_subject_isunread]]]
-        fg = 'bold'
-    [[[thread_subject_isflagged]]]
-        fg = 'underline'
-    [[[thread_subject_focus]]]
-        fg = 'standout'
-    [[[thread_subject_isunread_focus]]]
-        fg = 'standout,bold'
-    [[[thread_subject_isflagged_focus]]]
-        fg = 'standout,underline'
-    [[[thread_tags]]]
-        fg = 'bold'
-    [[[thread_tags_focus]]]
-        fg = 'standout'
+        fg_focus = 'default'
+        bg = 'default'
+        bg_focus = 'default'
+        order = date,mailcount,tags,authors,subject
+        [[[[authors]]]]
+            fg = 'default,underline'
+            fg_focus = 'standout'
+        [[[[content]]]]
+            fg = 'default'
+            fg_focus = 'standout'
+        [[[[date]]]]
+            fg = 'default'
+            fg_focus = 'standout'
+            width_fixed = 9
+        [[[[mailcount]]]]
+            fg = 'default'
+            fg_focus = 'standout'
+        [[[[subject]]]]
+            fg = 'default'
+            fg_focus = 'standout'
+        [[[[tags]]]]
+            fg = 'bold'
+            fg_focus = 'standout'
 [[thread]]
     [[[attachment]]]
         fg = 'default'
@@ -157,48 +146,41 @@
         bg = 'dark blue'
         fg = 'white'
 [[search]]
-    [[[thread]]]
-        bg = 'default'
+    [[[threadline]]]
         fg = 'default'
-    [[[thread_authors]]]
         bg = 'default'
-        fg = 'dark green'
-    [[[thread_authors_focus]]]
-        bg = 'dark gray'
-        fg = 'dark green,bold'
-    [[[thread_content]]]
-        bg = 'default'
-        fg = 'dark gray'
-    [[[thread_content_focus]]]
-        bg = 'dark gray'
-        fg = 'black'
-    [[[thread_date]]]
-        bg = 'default'
-        fg = 'light gray'
-    [[[thread_date_focus]]]
-        bg = 'dark gray'
-        fg = 'light gray'
-    [[[thread_focus]]]
-        bg = 'dark gray'
-        fg = 'light gray'
-    [[[thread_mailcount]]]
-        bg = 'default'
-        fg = 'light gray'
-    [[[thread_mailcount_focus]]]
-        bg = 'dark gray'
-        fg = 'light gray'
-    [[[thread_subject]]]
-        bg = 'default'
-        fg = 'light gray'
-    [[[thread_subject_focus]]]
-        bg = 'dark gray'
-        fg = 'light gray'
-    [[[thread_tags]]]
-        bg = 'default'
-        fg = 'brown'
-    [[[thread_tags_focus]]]
-        bg = 'dark gray'
-        fg = 'yellow,bold'
+        bg_focus = 'dark gray'
+        fg_focus = 'light gray'
+        order = date,mailcount,tags,authors,subject
+        [[[[authors]]]]
+            fg = 'dark green'
+            bg = 'default'
+            bg_focus = 'dark gray'
+            fg_focus = 'dark green,bold'
+        [[[[content]]]]
+            fg = 'default'
+            fg_focus = 'standout'
+        [[[[date]]]]
+            width_fixed = 9
+            bg = 'default'
+            fg = 'light gray'
+            bg_focus = 'dark gray'
+            fg_focus = 'light gray'
+        [[[[mailcount]]]]
+            bg = 'default'
+            fg = 'light gray'
+            bg_focus = 'dark gray'
+            fg_focus = 'light gray'
+        [[[[subject]]]]
+            bg = 'default'
+            fg = 'light gray'
+            bg_focus = 'dark gray'
+            fg_focus = 'light gray'
+        [[[[tags]]]]
+            bg = 'default'
+            fg = 'brown'
+            bg_focus = 'dark gray'
+            fg_focus = 'yellow,bold'
 
 [256]
 [[global]]
@@ -244,49 +226,41 @@
         bg = 'default'
         fg = 'default'
 [[search]]
-    [[[thread]]]
+    [[[threadline]]]
         bg = 'default'
         fg = '#6d6'
-        
-    [[[thread_authors]]]
-        bg = 'default'
-        fg = '#6d6'
-    [[[thread_authors_focus]]]
-        bg = '#68a'
-        fg = '#8f6'
-    [[[thread_content]]]
-        bg = 'default'
-        fg = '#866'
-    [[[thread_content_focus]]]
-        bg = '#68a'
-        fg = '#866'
-    [[[thread_date]]]
-        bg = 'default'
-        fg = 'g58'
-    [[[thread_date_focus]]]
-        bg = '#68a'
-        fg = 'g89'
-    [[[thread_focus]]]
-        bg = '#68a'
-        fg = 'white'
-    [[[thread_mailcount]]]
-        bg = 'default'
-        fg = 'light gray'
-    [[[thread_mailcount_focus]]]
-        bg = '#68a'
-        fg = 'g89'
-    [[[thread_subject]]]
-        bg = 'default'
-        fg = 'g58'
-    [[[thread_subject_focus]]]
-        bg = '#68a'
-        fg = 'g89'
-    [[[thread_tags]]]
-        bg = 'default'
-        fg = '#a86'
-    [[[thread_tags_focus]]]
-        bg = '#68a'
-        fg = '#ff8'
+        bg_focus = '#68a'
+        fg_focus = 'white'
+        order = date,mailcount,tags,authors,subject
+        [[[[authors]]]]
+            bg = 'default'
+            fg = '#6d6'
+            bg_focus = '#68a'
+            fg_focus = '#8f6'
+        [[[[content]]]]
+            fg = 'default'
+            fg_focus = 'standout'
+        [[[[date]]]]
+            width_fixed = 9
+            bg = 'default'
+            fg = 'g58'
+            bg_focus = '#68a'
+            fg_focus = 'g89'
+        [[[[mailcount]]]]
+            bg = 'default'
+            fg = 'light gray'
+            bg_focus = '#68a'
+            fg_focus = 'g89'
+        [[[[subject]]]]
+            bg = 'default'
+            fg = 'g58'
+            bg_focus = '#68a'
+            fg_focus = 'g89'
+        [[[[tags]]]]
+            bg = 'default'
+            fg = '#a86'
+            bg_focus = '#68a'
+            fg_focus = '#ff8'
 [[thread]]
     [[[attachment]]]
         bg = 'dark gray'

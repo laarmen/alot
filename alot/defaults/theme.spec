@@ -1,204 +1,186 @@
 [1]
 [[global]]
     [[[footer]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[notify_error]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[notify_normal]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[prompt]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[tag]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[tag_focus]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[tag_draft]]]
-        fg = string(default='default')
+        fg = string(default=None)
 [[help]]
     [[[text]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[section]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[title]]]
-        fg = string(default='default')
+        fg = string(default=None)
 [[bufferlist]]
     [[[focus]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[results_even]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[results_odd]]]
-        fg = string(default='default')
+        fg = string(default=None)
 [[search]]
-    [[[thread]]]
-        fg = string(default='default')
-    [[[thread_authors]]]
-        fg = string(default='default')
-    [[[thread_authors_focus]]]
-        fg = string(default='default')
-    [[[thread_content]]]
-        fg = string(default='default')
-    [[[thread_content_focus]]]
-        fg = string(default='default')
-    [[[thread_date]]]
-        fg = string(default='default')
-    [[[thread_date_focus]]]
-        fg = string(default='default')
-    [[[thread_focus]]]
-        fg = string(default='default')
-    [[[thread_mailcount]]]
-        fg = string(default='default')
-    [[[thread_mailcount_focus]]]
-        fg = string(default='default')
-    [[[thread_subject]]]
-        fg = string(default='default')
-    [[[thread_subject_isunread]]]
-        fg = string(default='default')
-    [[[thread_subject_isflagged]]]
-        fg = string(default='default')
-    [[[thread_subject_focus]]]
-        fg = string(default='default')
-    [[[thread_subject_isunread_focus]]]
-        fg = string(default='default')
-    [[[thread_subject_isflagged_focus]]]
-        fg = string(default='default')
-    [[[thread_tags]]]
-        fg = string(default='default')
-    [[[thread_tags_focus]]]
-        fg = string(default='default')
+    [[[threadline]]]
+        fg = string(default=None)
+        fg_focus = string(default=None)
+        bg = string(default=None)
+        bg_focus = string(default=None)
+        # order subwidgets are displayed. subset of {date,mailcount,tags,authors,subject,count}
+        # every element listed must have its own subsection below
+        order = string_list(default=list(date,mailcount,tags,authors,subject))
+        [[[[__many__]]]]
+            fg = string(default=None)
+            fg_focus = string(default=None)
+            bg = string(default=None)
+            bg_focus = string(default=None)
+            width_fixed = integer(default=None)
+            width_weight = integer(default=None)
+    [[[__many__]]]
+        fg = string(default=None)
+        fg_focus = string(default=None)
+        bg = string(default=None)
+        bg_focus = string(default=None)
+        #condition = 'tags:foo,bar' or 'query:QUERYSTRING'
+        criterion = string
+        order = string_list(default=list(date,mailcount,tags,authors,subject))
+        [[[[__many__]]]]
+            fg = string(default=None)
+            fg_focus = string(default=None)
+            bg = string(default=None)
+            bg_focus = string(default=None)
+            width_fixed = integer(default=None)
+            width_weight = integer(default=None)
 [[thread]]
     [[[attachment]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[attachment_focus]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[body]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[header]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[header_key]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[header_value]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[summary_even]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[summary_focus]]]
-        fg = string(default='default')
+        fg = string(default=None)
     [[[summary_odd]]]
-        fg = string(default='default')
+        fg = string(default=None)
 
 [16]
 [[global]]
     [[[footer]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[notify_error]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[notify_normal]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[prompt]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[tag]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[tag_focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[tag_draft]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
 [[help]]
     [[[text]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[section]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[title]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
 [[bufferlist]]
     [[[focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[results_even]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[results_odd]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
 [[thread]]
     [[[attachment]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[attachment_focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[body]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[header]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[header_key]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[header_value]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[summary_even]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[summary_focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
     [[[summary_odd]]]
-        bg = string(default='default')
-        fg = string(default='default')
+        bg = string(default=None)
+        fg = string(default=None)
 [[search]]
-    [[[thread]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_authors]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_authors_focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_content]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_content_focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_date]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_date_focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_mailcount]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_mailcount_focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_subject]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_subject_focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_tags]]]
-        bg = string(default='default')
-        fg = string(default='default')
-    [[[thread_tags_focus]]]
-        bg = string(default='default')
-        fg = string(default='default')
+    [[[threadline]]]
+        fg = string(default=None)
+        fg_focus = string(default=None)
+        bg = string(default=None)
+        bg_focus = string(default=None)
+        # order subwidgets are displayed. subset of {date,mailcount,tags,authors,subject,count}
+        # every element listed must have its own subsection below
+        order = string_list(default=list(date,mailcount,tags,authors,subject))
+        [[[[__many__]]]]
+            fg = string(default=None)
+            fg_focus = string(default=None)
+            bg = string(default=None)
+            bg_focus = string(default=None)
+            width_fixed = integer(default=None)
+            width_weight = integer(default=None)
+    [[[__many__]]]
+        fg = string(default=None)
+        fg_focus = string(default=None)
+        bg = string(default=None)
+        bg_focus = string(default=None)
+        #condition = 'tags:foo,bar' or 'query:QUERYSTRING'
+        criterion = string
+        order = string_list(default=list(date,mailcount,tags,authors,subject))
+        [[[[__many__]]]]
+            fg = string(default=None)
+            fg_focus = string(default=None)
+            bg = string(default=None)
+            bg_focus = string(default=None)
+            width_fixed = integer(default=None)
+            width_weight = integer(default=None)
 
 [256]
 [[global]]
@@ -244,47 +226,36 @@
         bg = string(default=None)
         fg = string(default=None)
 [[search]]
-    [[[thread]]]
+    [[[threadline]]]
         fg = string(default=None)
-    [[[thread_authors]]]
+        fg_focus = string(default=None)
         bg = string(default=None)
+        bg_focus = string(default=None)
+        # order subwidgets are displayed. subset of {date,mailcount,tags,authors,subject,count}
+        # every element listed must have its own subsection below
+        order = string_list(default=list(date,mailcount,tags,authors,subject))
+        [[[[__many__]]]]
+            fg = string(default=None)
+            fg_focus = string(default=None)
+            bg = string(default=None)
+            bg_focus = string(default=None)
+            width_fixed = integer(default=None)
+            width_weight = integer(default=None)
+    [[[__many__]]]
         fg = string(default=None)
-    [[[thread_authors_focus]]]
+        fg_focus = string(default=None)
         bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_content]]]
-        bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_content_focus]]]
-        bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_date]]]
-        bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_date_focus]]]
-        bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_focus]]]
-        bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_mailcount]]]
-        bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_mailcount_focus]]]
-        bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_subject]]]
-        bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_subject_focus]]]
-        bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_tags]]]
-        bg = string(default=None)
-        fg = string(default=None)
-    [[[thread_tags_focus]]]
-        bg = string(default=None)
-        fg = string(default=None)
+        bg_focus = string(default=None)
+        #condition = 'tags:foo,bar' or 'query:QUERYSTRING'
+        criterion = string
+        order = string_list(default=list(date,mailcount,tags,authors,subject))
+        [[[[__many__]]]]
+            fg = string(default=None)
+            fg_focus = string(default=None)
+            bg = string(default=None)
+            bg_focus = string(default=None)
+            width_fixed = integer(default=None)
+            width_weight = integer(default=None)
 [[thread]]
     [[[attachment]]]
         bg = string(default=None)
