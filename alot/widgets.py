@@ -82,75 +82,79 @@ class ThreadlineWidget(urwid.AttrMap):
         self.thread = dbman.get_thread(tid)
         #logging.debug('tid: %s' % self.thread)
         self.tag_widgets = []
-        self.display_content = settings.get('display_content_in_threadline')
+        self.structure = None
         self.rebuild()
-        normal = settings.get_theming_attribute('search', 'thread')
-        focussed = settings.get_theming_attribute('search', 'thread_focus')
+        normal = self.structure['spaces']
+        focussed = normal  #TODO
         urwid.AttrMap.__init__(self, self.columns, normal, focussed)
 
-    def rebuild(self):
-        cols = []
-        if self.thread:
-            newest = self.thread.get_newest_date()
-        else:
+    def _build_part(self, name, struct):
+
+        if name == 'date':
             newest = None
-        if newest == None:
             datestring = ''
-        else:
-            formatstring = settings.get('timestamp_format')
-            if formatstring is None:
-                datestring = pretty_datetime(newest)
+            if self.thread:
+                newest = self.thread.get_newest_date()
+                formatstring = settings.get('timestamp_format')
+                if formatstring is None:
+                    datestring = pretty_datetime(newest)
+                else:
+                    datestring = newest.strftime(formatstring)
+            self.date_w = urwid.AttrMap(urwid.Text(datestring), struct['date'])
+            return struct['date']['widthtuple'] + (self.date_w,)
+
+        elif name == 'mailcount':
+            if self.thread:
+                mailcountstring = "(%d)" % self.thread.get_total_messages()
             else:
-                datestring = newest.strftime(formatstring)
-        datestring = datestring.rjust(self.pretty_datetime_len)
-        self.date_w = urwid.AttrMap(urwid.Text(datestring),
-                                    self._get_theme('date'))
-        cols.append(('fixed', len(datestring), self.date_w))
+                mailcountstring = "(?)"
+            self.mailcount_w = urwid.AttrMap(urwid.Text(mailcountstring),
+                                             struct['mailcount'])
+            return struct['mailcount']['widthtuple'] + (self.mailcount_w,)
+        elif name == 'tags':
+            return None # TODO
+            if self.thread:
+                self.tag_widgets = [TagWidget(t)
+                                    for t in self.thread.get_tags()]
+            else:
+                self.tag_widgets = []
+            self.tag_widgets.sort(tag_cmp,
+                                  lambda tag_widget: tag_widget.translated)
+            for tag_widget in self.tag_widgets:
+                cols = []
+                if not tag_widget.hidden:
+                    cols.append(('fixed', tag_widget.width(), tag_widget))
+                self.tags_w = urwid.Columns([cols])
+                return struct['tags']['widthtuple'] + (self.tags_w,)
+        elif name == 'authors':
+            if self.thread:
+                authors = self.thread.get_authors_string() or '(None)'
+            else:
+                authors = '(None)'
+            maxlength = settings.get('authors_maxlength')  #TODO
+            authorsstring = shorten_author_string(authors, maxlength)
+            self.authors_w = urwid.AttrMap(urwid.Text(authorsstring),
+                                           struct['authors'])
+            return struct['authors']['widthtuple'] + (self.authors_w,)
 
-        if self.thread:
-            mailcountstring = "(%d)" % self.thread.get_total_messages()
-        else:
-            mailcountstring = "(?)"
-        self.mailcount_w = urwid.AttrMap(urwid.Text(mailcountstring),
-                                         self._get_theme('mailcount'))
-        cols.append(('fixed', len(mailcountstring), self.mailcount_w))
+        elif name == 'subject':
+            if self.thread:
+                subjectstring = self.thread.get_subject() or ''
+            else:
+                subjectstring = ''
+            # sanitize subject string:
+            subjectstring = subjectstring.replace('\n', ' ')
+            subjectstring = subjectstring.replace('\r', '')
+            subjectstring = subjectstring.strip()
 
-        if self.thread:
-            self.tag_widgets = [TagWidget(t)
-                                for t in self.thread.get_tags()]
-        else:
-            self.tag_widgets = []
-        self.tag_widgets.sort(tag_cmp,
-                              lambda tag_widget: tag_widget.translated)
-        for tag_widget in self.tag_widgets:
-            if not tag_widget.hidden:
-                cols.append(('fixed', tag_widget.width(), tag_widget))
+            self.subject_w = urwid.AttrMap(urwid.Text(subjectstring, wrap='clip'),
+                                           struct['subject'])
+            if subjectstring:
+                return struct['subject']['widthtuple'] + (self.subject_w,)
+            else:
+                return None
 
-        if self.thread:
-            authors = self.thread.get_authors_string() or '(None)'
-        else:
-            authors = '(None)'
-        maxlength = settings.get('authors_maxlength')
-        authorsstring = shorten_author_string(authors, maxlength)
-        self.authors_w = urwid.AttrMap(urwid.Text(authorsstring),
-                                       self._get_theme('authors'))
-        cols.append(('fixed', len(authorsstring), self.authors_w))
-
-        if self.thread:
-            subjectstring = self.thread.get_subject() or ''
-        else:
-            subjectstring = ''
-        # sanitize subject string:
-        subjectstring = subjectstring.replace('\n', ' ')
-        subjectstring = subjectstring.replace('\r', '')
-        subjectstring = subjectstring.strip()
-
-        self.subject_w = urwid.AttrMap(urwid.Text(subjectstring, wrap='clip'),
-                                       self._get_theme('subject'))
-        if subjectstring:
-            cols.append(('weight', 2, self.subject_w))
-
-        if self.display_content:
+        elif name == 'content':
             if self.thread:
                 msgs = self.thread.get_messages().keys()
             else:
@@ -161,8 +165,18 @@ class ThreadlineWidget(urwid.AttrMap):
             self.content_w = urwid.AttrMap(urwid.Text(
                                                    contentstring,
                                                    wrap='clip'),
-                                                   self._get_theme('content'))
-            cols.append(self.content_w)
+                                                   struct['content'])
+            return struct['content']['widthtuple'] + (self.content_w,)
+
+    def rebuild(self):
+        self.structure = settings.get_threadline_structure(self.thread)
+        cols = []
+        logging.debug(self.structure)
+        for partname in self.structure['order']:
+            part = self._build_part(partname, self.structure)
+            if part:
+                cols.append(part)
+        logging.debug(cols)
 
         self.columns = urwid.Columns(cols, dividechars=1)
         self.original_widget = self.columns

@@ -204,6 +204,10 @@ class SettingsManager(object):
             value = fallback
         return value
 
+    def get_threadline_structure(self, thread):
+        colours = int(self._config.get('colourmode'))
+        return self._theme.get_threadline_structure(thread, colours)
+
     def get_theming_attribute(self, mode, name):
         """
         looks up theming attribute
